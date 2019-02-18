@@ -7,6 +7,10 @@ These utilities uinteract with the Infineon I2C protocol implementation.
 
 The Infineon I2C Protocol is a multilayered protocol stack over an I2C bus used to communicate and transfer commands from host microcontroller to a security IC. It follows the [OSI model](https://en.wikipedia.org/wiki/OSI_model). The protocol is defined for point-to-point connection with low failure rate. It is optimized for minimum RAM usage and minimum overhead to achieve maximum bandwidth, but also offers error handling and flow control.
 
+Protocol specification:
+
+* [Infineon I<sup>2</sup>C protocol specification v1.65](https://github.com/Infineon/Assets/raw/master/PDFs/IFXI2CProtocol_v1.65.pdf) (PDF)
+
 # Supported options
 
 * Perform a software reset
