@@ -1,18 +1,136 @@
 # I2C Utilities for OPTIGA™ Trust secure IC
 
-This repositiry provides a set of utilities to easier an interaction with a OPTIGA™ Trust device.
-These utilities interact with registers of a OPTIGA™ Trust secure IC.
+* [About](#about)
+  * [Prerequisites](#prerequisites)
+  * [Contents of the package](#contents_of_package)
+  * [Getting Started](#getting_started)
+* [Usage](#usage)
+  * [trustx_reg](#reg)
+  * [trustx_scan](#scan)
+  * [trustx_softreset](#softreset)
+  * [trustx_w_addr](#w_addr)
+* [Known issues](#known_issues)
+* [Registers](#registers)
+* [License](#license)
 
-# Supported options
+## <a name="about"></a>About
 
-* Perform a software reset
-* Scan i2c bus to find a security IC
-* Assign a new address to a security IC
-* Update a register value
+This is a simple test tools for OPTIGA Trust X I2C interface on Linux platform.
+    
+**_WARNING! This program can confuse your I2C bus, cause data loss and worse!_**
 
-# Usage examples
+It will send a I2C read command from address 0x00 to 0x7F.
+    
+When probing I2C address, the program will send three attempt read command at the interval of 500us before moving to the next address.
+A detect is flag when there is an ackonwlegde from the slave.   
 
-# Registers
+### <a name="prerequisites"></a>Prerequisites
+
+To build and run the tools you need GCC and a Linux system
+
+Tested platforms:
+  - Raspberry PI 3 on kernal 4.14
+
+### <a name="contents_of_package"></a>Contents of Package
+
+This tools consists of the following files & directory:
+
+	.
+	├── bin	                           /* all executable file is store here	            */ 	       
+	├── lib                            /* Library Component for Trust X                 */
+	│   ├── common                     /* Common files used by others library component */
+	│   │   ├── include                /* Common include directory                      */
+	│   │   │   ├── trustx_debug.h     // Header for Debuging 
+	│   │   │   ├── trustx_error.h     // Header for Error code
+	│   │   │   ├── trustx_platform.h  // Header related to platform 
+	│   │   │   ├── trustx_reg.h       // Header related to Trust X register
+	│   │   │   └── trustx_util.h      // Header for helper rountine 
+	│   │   └── trustx_util.c          // Helper rountine
+	│   └── interface                  /* Interface library component                   */   
+	│       ├── include                /* Interface include directory                   */
+	│       │   └── trustx_interface.h // Header for Trust X interface rountine         */
+	│       └── TrustX_Interface.c     // Trust X interface rountine                    */
+	├── Makefile                       // Makefile
+	├── README.md                      // Markdown read me file
+	├── README.txt                     // Text read me file (this file)
+	└── sample                         /* All sample executeable source code            */
+	    ├── trustx_reg.c               // read register source
+	    ├── trustx_scan.c              // scan i2c source
+	    ├── trustx_softreset.c         // Softreset source
+	    └── trustx_w_addr.c            // change i2c address source
+
+### <a name="getting_started"></a>Getting Started
+
+In order to used the tools, you need to compile it first:
+1. Switch to the directory with the Makefile
+2. Compile the source code by typing the following command:
+```console
+$ make
+```
+3. On sucessful build the executeable is store in bin directory   
+4. To clear up the project used the following command:
+```console
+$ make clean
+```
+
+## <a name="usage"></a>Usage
+### <a name=reg></a>trustx_reg
+Read/Write to register 
+
+```
+option:-
+    -a Set I2C Address (Default 0x30) 
+    -b Set I2C bus (Default /dev/i2c-1) 
+    -w <filename> 
+    -r <0xnn> Select Register
+    -R Read all register (except DATA[0x80]) 
+    -h Print is help menu
+```
+    
+### <a name=scan></a>trustx_scan
+
+Scan I2C address from 0x00 to 0x7F
+
+```
+option:-
+    -b Set I2C bus (Default /dev/i2c-1) 
+    -h Print is help menu
+```
+
+**_WARNING! This program can confuse your I2C bus, cause data loss and worse!_**
+
+It will send a I2C read command from address 0x00 to 0x7F.
+    
+When probing I2C address, the program will send three attempt read command at the interval of 500us before moving to the next address.
+A detect is flag when there is an ackonwlegde from the slave. 
+
+### <a name=softreset></a>trustx_softreset
+Send a soft reset command to Trust X
+
+```
+option:- 
+    -a Set I2C Address (Default 0x30) 
+    -b Set I2C bus (Default /dev/i2c-1)  
+    -h Print this help menu
+```
+
+### <a name=w_addr></a>trustx_w_addr
+
+Change Trust X I2C address
+
+```
+option:- 
+    -a Set I2C Address (Default 0x30) 
+    -b Set I2C bus (Default /dev/i2c-1) 
+    -n Set New I2C Address (Default 0x30)
+    -p Set New I2C Address persistent  
+    -h Print this help menu
+```
+### <a name="known_issues"></a> Known issues
+* `trustx_w_addr` sometime return fail but address is changes.
+* `trustx_reg` option -w <filename> not tested
+
+## <a name="registers"></a> Registers
 
 Below you can find a table of Infineon standard register set. For details plese have a look on Infineon I2C protocol specification [ver. 1.65](https://github.com/ayushev/optiga-trust-m/blob/master/documents/Infineon_I2C_Protocol_v2.02.pdf) (PDF)
 
@@ -40,5 +158,5 @@ protocol variations’ shall be applied.
 
 TRANS_TIMEOUT*, PWR_SAVE_TIMEOUT* - In case the register returns 0xFFFFFFFF the register and its functionality is not supported.
 
-# License
+## <a name="license"></a> License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
