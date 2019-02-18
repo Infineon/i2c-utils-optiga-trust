@@ -14,6 +14,8 @@ These utilities interact with registers of a OPTIGA™ Trust secure IC.
 
 # Registers
 
+Below you can find a table of Infineon standard register set. For details plese have a look on Infineon I2C protocol specification [ver. 1.65](https://github.com/ayushev/optiga-trust-m/blob/master/documents/Infineon_I2C_Protocol_v2.02.pdf) (PDF)
+
 | Register Address  | Name  | Size in Bytes  | Description  |  Master Access |
 |---|---|---|---|---|
 | 0x80  | DATA  | DATA_REG_LEN   | This is the location where data shall be read from or written to the I2C slave | Read/Write |
