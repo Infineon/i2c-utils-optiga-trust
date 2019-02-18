@@ -15,7 +15,7 @@
 
 ## <a name="about"></a>About
 
-This is a simple test tools for OPTIGA Trust X I2C interface on Linux platform.
+This is a simple test tools for OPTIGA™ Trust X I2C interface on Linux platform.
     
 **_WARNING! This program can confuse your I2C bus, cause data loss and worse!_**
 
