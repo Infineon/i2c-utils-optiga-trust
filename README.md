@@ -1,4 +1,5 @@
 # I2C Utilities for OPTIGA™ Trust secure IC
+by Timothy Yong
 
 * [About](#about)
   * [Prerequisites](#prerequisites)
