@@ -133,7 +133,7 @@ option:-
 
 ## <a name="registers"></a> Registers
 
-Below you can find a table of Infineon standard register set. For details plese have a look on Infineon I2C protocol specification [ver. 1.65](https://github.com/ayushev/optiga-trust-m/blob/master/documents/Infineon_I2C_Protocol_v2.02.pdf) (PDF)
+Below you can find a table of Infineon standard register set. For details plese have a look on Infineon I2C protocol specification [ver. 1.65](https://github.com/ayushev/optiga-trust-x#documentation) (PDF)
 
 | Register Address  | Name  | Size in Bytes  | Description  |  Master Access |
 |---|---|---|---|---|
