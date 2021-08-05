@@ -138,7 +138,9 @@ uint16_t trustX_Reg_Write(uint8_t reg, uint8_t *pData, uint16_t dataLen)
 	{
 		ret = trustX_I2C_Write(pBuffer, dataLen+1);
 		if (ret != INTERFACE_SUCCESS)
+		{
 			DEBUGPRINTINTERFACE(".");
+		}
 		else
 		{
 			break;
@@ -220,7 +222,9 @@ uint16_t trustX_Reg_Read(uint8_t reg, uint8_t *pData, uint16_t *dataLen)
 	{
 		ret = trustX_I2C_Write(pBuffer, 1);
 		if (ret != INTERFACE_SUCCESS)
+		{
 			DEBUGPRINTINTERFACE(".");
+		}
 		else
 		{
 			DEBUGPRINTINTERFACE("Command sended.\n");
@@ -235,7 +239,9 @@ uint16_t trustX_Reg_Read(uint8_t reg, uint8_t *pData, uint16_t *dataLen)
 		{	
 			ret = trustX_I2C_Read(pData, bufLen);
 			if(ret != INTERFACE_SUCCESS)
+			{
 				DEBUGPRINTINTERFACE(".");
+			}
 			else
 			{	
 				*dataLen = bufLen;
