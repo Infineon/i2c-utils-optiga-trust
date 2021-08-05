@@ -147,28 +147,35 @@ int main(int argc, char **argv)
 			continue;
 			
 		ret = trustX_I2C_Open(j);
-		if (ret != INTERFACE_SUCCESS)
+		if ((ret != INTERFACE_SUCCESS) && (ret != INTERFACE_ERR_SLAVE_ADDR))
 		{
 			printf("Interface Open error!!!\n");
 			return -1;
 		}
 
-		for(i=0;i<2;i++)
+		if (ret != INTERFACE_ERR_SLAVE_ADDR)
 		{
-			ret = trustX_I2C_Read(pData,1);
-			if(ret != INTERFACE_SUCCESS)
+			for(i=0;i<2;i++)
 			{
-				pDetected[j] = 0x00;
+				ret = trustX_I2C_Read(pData,1);
+				if(ret != INTERFACE_SUCCESS)
+				{
+					pDetected[j] = 0x00;
+				}
+				else
+				{
+					pDetected[j] = 0x01;
+					break;
+				}
+				usleep(500);
 			}
-			else
-			{
-				pDetected[j] = 0x01;
-				break;
-			}
-			usleep(500);
-		}
 
-		trustX_I2C_Close();	
+			trustX_I2C_Close();
+		}
+		else if (ret == INTERFACE_ERR_SLAVE_ADDR)
+		{
+			pDetected[j] = 0x55;
+		}
 	}
 
 	printf("     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f");
@@ -178,11 +185,21 @@ int main(int argc, char **argv)
 			printf("\n%.2x : ",j);
 		
 		if (pDetected[j] == 1)
+		{
 			printf("%.2x ",j);
+		}
 		else if (pDetected[j] == 0xff)
+		{
 			printf("   ");
+		}
+		else if (pDetected[j] == 0x55)
+		{
+			printf("UU ");
+		}
 		else
+		{
 			printf("-- ");
+		}
 	}
 	printf("\n");
 	return ret;
