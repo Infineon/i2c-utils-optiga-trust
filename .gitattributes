@@ -1,0 +1,11 @@
+# 2010
+*.txt -crlf
+*.c -crlf
+*.h -crlf
+Makefile -crlf
+
+# 2020
+*.txt text eol=lf
+*.c text eol=lf
+*.h text eol=lf
+Makefile text eol=lf
