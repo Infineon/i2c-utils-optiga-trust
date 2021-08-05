@@ -72,10 +72,10 @@ uint16_t trustX_I2C_Open(uint8_t i2cAddr)
 	if (ioctl(pTrustX_I2C_Handle, I2C_SLAVE, i2cAddr) < 0)
 	{
 		// Error Handling
-		ERRORPRINTINTERFACE("Failed to acquire i2c bus access at 0x%.2x \n",TRUSTX_I2C_ADDR);
+		ERRORPRINTINTERFACE("Failed to acquire i2c bus access at 0x%.2x \n", i2cAddr);
 		return INTERFACE_ERR_SLAVE_ADDR;
 	}
-	DEBUGPRINTINTERFACE("i2c bus acquire address: 0x%.2x \n",TRUSTX_I2C_ADDR);
+	DEBUGPRINTINTERFACE("i2c bus acquire address: 0x%.2x \n", i2cAddr);
 
 	return INTERFACE_SUCCESS;
 }
