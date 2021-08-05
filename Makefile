@@ -57,11 +57,11 @@ $(APPS): %: $(OBJECTS) $(INCSSRC) %.o
 	@cp $@ bin/.
 
 $(OBJECTS): %.o: %.$(SRCEXT) $(INCSSRC)
-	@echo "+++++++ Genrating dependencies for $< "
+	@echo "+++++++ Generating dependencies for $< "
 	@$(CC) $(CFLAGS) $< -o $@
 
 %.o: %.$(SRCEXT) $(INCSSRC)
-	@echo "------- Genrating application objects for $< "
+	@echo "------- Generating application objects for $< "
 	@$(CC) $(CFLAGS) $< -o $@
 
 .Phony : clean 
